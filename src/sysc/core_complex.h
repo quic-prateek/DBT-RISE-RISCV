@@ -265,7 +265,7 @@ protected:
         core->setup_mt();
         quantum_keeper.check_and_sync(sc_core::SC_ZERO_TIME);
         quantum_keeper.run_thread([this]() {
-            vm->start(std::numeric_limits<uint64_t>::max(), dump_ir);
+            vm->start(std::numeric_limits<uint64_t>::max(), dump_ir, iss::finish_cond_e::NONE);
             return quantum_keeper.get_local_absolute_time();
         });
     }
@@ -291,7 +291,7 @@ protected:
         f();
     }
     template <typename U = QK> typename std::enable_if<std::is_same<U, tlm::scc::quantumkeeper>::value>::type run_iss() {
-        vm->start(std::numeric_limits<uint64_t>::max(), dump_ir);
+        vm->start(std::numeric_limits<uint64_t>::max(), dump_ir, iss::finish_cond_e::NONE);
     }
     ///////////////////////////////////////////////////////////////////////////////
     //
